@@ -43,7 +43,7 @@ export default function App() {
   }, [location.id, location.anchor, page]);
   useEffect(() => { document.documentElement.dataset.theme = theme; try { localStorage.setItem('ran-docs-theme', theme); } catch { /* Theme remains active for this visit. */ } }, [theme]);
   useEffect(() => { document.body.classList.toggle('mobile-nav-open', mobileOpen); }, [mobileOpen]);
-  useEffect(() => { document.body.classList.toggle('sidebar-collapsed', sidebarCollapsed); try { localStorage.setItem('ran-docs-sidebar-collapsed', String(sidebarCollapsed)); } catch { /* The preference is optional. */ } }, [sidebarCollapsed]);
+  useEffect(() => { try { localStorage.setItem('ran-docs-sidebar-collapsed', String(sidebarCollapsed)); } catch { /* The preference is optional. */ } }, [sidebarCollapsed]);
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const editing = /^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement as HTMLElement | null)?.tagName || '');
@@ -75,7 +75,7 @@ export default function App() {
     if (url.pathname.startsWith(docsBase)) { event.preventDefault(); go(`${url.pathname}${url.hash}`); }
   };
 
-  return <><a className="skip-link" href="#main-content">Skip to content</a><div className="app-shell">
+  return <><a className="skip-link" href="#main-content">Skip to content</a><div className={`app-shell ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
     <DocSidebar active={location.id} close={() => setMobileOpen(false)} collapsed={sidebarCollapsed} toggleCollapsed={() => setSidebarCollapsed((value) => !value)}/>
     <div className="mobile-scrim" hidden={!mobileOpen} onClick={() => setMobileOpen(false)} aria-hidden="true"/>
     <div className="workspace"><header className="topbar"><div className="topbar-start"><button className="icon-button menu-toggle" onClick={() => { if (matchMedia('(max-width: 820px)').matches) setMobileOpen((value) => !value); else setSidebarCollapsed((value) => !value); }} aria-label="Toggle documentation navigation" aria-controls="sidebar" aria-expanded={matchMedia('(max-width: 820px)').matches ? mobileOpen : !sidebarCollapsed}><Menu/></button><span className="topbar-divider"/><span className="topbar-location">Documentation <span>/</span> <strong>{page?.title || 'Page not found'}</strong></span></div><div className="topbar-actions"><button ref={searchTrigger} className="search-trigger" onClick={() => setSearchOpen(true)} aria-keyshortcuts="Control+k Meta+k /"><Search/><span>Search documentation</span><kbd>⌘ K</kbd></button><div className="theme-switch" role="group" aria-label="Color theme"><button className="theme-option" aria-label="Light mode" aria-pressed={theme === 'light'} onClick={() => setTheme('light')}><Sun/><span>Light</span></button><button className="theme-option" aria-label="Dark mode" aria-pressed={theme === 'dark'} onClick={() => setTheme('dark')}><Moon/><span>Dark</span></button></div></div></header>
