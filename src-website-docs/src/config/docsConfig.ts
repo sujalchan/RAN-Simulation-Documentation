@@ -35,7 +35,7 @@ export const docsRegistry = pages.map((page, order) => ({
   title: page.title,
   description: page.summary,
   category: page.group === 'Code reference' ? 'Reference' : page.group,
-  path: `/docs/${page.id}`,
+  path: `${import.meta.env.BASE_URL}docs/${page.id}`,
   order,
   keywords: page.tags,
   related: page.id.startsWith('script/') ? scripts.find((item) => `script/${item.id}` === page.id)?.related || [] : relatedById[page.id] || [],
@@ -58,12 +58,13 @@ const routeAliases: Record<string, string> = {
 
 export function docPath(id: string, anchor = '') {
   const normalized = id.startsWith('script/') ? id : id;
-  return `/docs/${normalized}${anchor ? `#${anchor}` : ''}`;
+  return `${import.meta.env.BASE_URL}docs/${normalized}${anchor ? `#${anchor}` : ''}`;
 }
 
 export function parseDocLocation() {
-  const pathname = window.location.pathname;
-  const route = pathname.startsWith('/docs/') ? decodeURIComponent(pathname.slice(6)) : 'overview';
+  const mountPath = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL.replace(/\/$/, '');
+  const mountedPath = window.location.pathname.startsWith(mountPath) ? window.location.pathname.slice(mountPath.length) : window.location.pathname;
+  const route = mountedPath.startsWith('/docs/') ? decodeURIComponent(mountedPath.slice(6)) : 'overview';
   const id = route.replace(/\/$/, '') || 'overview';
   return { id: routeAliases[id] || id, anchor: decodeURIComponent(window.location.hash.slice(1)) };
 }

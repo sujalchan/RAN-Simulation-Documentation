@@ -71,7 +71,8 @@ export default function App() {
       return;
     }
     const url = new URL(anchor.href, window.location.href);
-    if (url.pathname.startsWith('/docs/')) { event.preventDefault(); go(`${url.pathname}${url.hash}`); }
+    const docsBase = `${import.meta.env.BASE_URL}docs/`;
+    if (url.pathname.startsWith(docsBase)) { event.preventDefault(); go(`${url.pathname}${url.hash}`); }
   };
 
   return <><a className="skip-link" href="#main-content">Skip to content</a><div className="app-shell">
