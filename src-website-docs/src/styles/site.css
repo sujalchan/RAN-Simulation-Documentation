@@ -80,6 +80,8 @@ svg { width: 20px; height: 20px; flex: 0 0 auto; }
 .topbar-start, .topbar-actions { display: flex; min-width: 0; align-items: center; gap: 16px; }
 .icon-button { display: grid; width: 34px; height: 34px; flex: 0 0 auto; place-items: center; border: 1px solid transparent; border-radius: 7px; background: transparent; color: #536b7c; }
 .icon-button:hover { border-color: var(--line); background: #f4f7f8; color: var(--navy); }
+.menu-toggle { display: flex; width: auto; align-items: center; gap: 7px; padding: 0 8px; }
+.menu-toggle-label { font-size: .7rem; font-weight: 650; white-space: nowrap; }
 .topbar-divider { width: 1px; height: 19px; background: var(--line); }
 .topbar-location { overflow: hidden; color: #718594; font-size: .75rem; text-overflow: ellipsis; white-space: nowrap; }
 .topbar-location span { padding: 0 6px; color: #b2c0ca; }
@@ -405,6 +407,7 @@ body { background: var(--ambient); background-attachment: fixed; }
   .sidebar { width: min(310px,86vw); transform: translateX(-100%); box-shadow: 10px 0 30px rgba(16,47,75,.12); }
   .mobile-nav-open .sidebar { transform: translateX(0); }
   .sidebar-close { display: grid !important; }
+  .menu-toggle-label { display: none; }
   .mobile-scrim:not([hidden]) { position: fixed; z-index: 25; inset: 0; background: rgba(7,31,48,.35); }
   .workspace { margin-left: 0; }
   .topbar { padding-inline: 21px; }
