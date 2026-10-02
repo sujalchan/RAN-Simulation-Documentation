@@ -4,6 +4,8 @@ Developer documentation website for the **RAN Network Simulator**, built with Re
 
 The site documents the architecture, Luau scripts, simulation systems, client/server communication, and telecommunications concepts used by the Roblox Studio implementation.
 
+The site should be avaliable here: [RAN-Simulation-Documentation Site](https://sujalchan.github.io/RAN-Simulation-Documentation/docs/overview/)
+
 ## Getting Started
 
 ### Prerequisites
