@@ -1,4 +1,5 @@
 /* Page content: terminology. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('terminology', 'Terminology and limits', 'Simulation', 'The network vocabulary used by this simulator and the boundaries of its simplified models.', ['RAN', 'RSRP', 'RSRQ', 'SINR', 'dBm', '4G', '5G'], () => `

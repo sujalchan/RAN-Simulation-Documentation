@@ -1,4 +1,5 @@
 /* Page content: overview. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('overview', 'Overview', 'Getting started', 'Why the RAN Simulator was built for the 2degrees ShadowTech booth and how its activities introduce mobile network ideas.', ['RAN', 'Roblox', '2degrees', 'ShadowTech', 'Year 9–11'], () => `

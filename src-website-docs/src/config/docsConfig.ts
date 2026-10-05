@@ -1,5 +1,6 @@
 import data from '../data/docsData.js';
 
+// Share the JavaScript content catalog's inferred types with the React components.
 export type DocPage = (typeof data.pages)[number];
 export type ScriptReference = {
   id: string; name: string; path: string; place: string; runtime: string; kind: string; summary: string;
@@ -13,6 +14,8 @@ export const scripts = data.scripts as ScriptReference[];
 export const events = data.events as RemoteEvent[];
 export const pageById = new Map(pages.map((page) => [page.id, page]));
 export const scriptCount = scripts.length;
+
+// These handpicked links describe editorial relationships rather than inferring them from page order.
 const relatedById: Record<string, string[]> = {
   overview: ['repository', 'architecture', 'simulation/signal', 'code-reference'],
   repository: ['architecture', 'events', 'code-reference'],
@@ -41,6 +44,8 @@ export const docsRegistry = pages.map((page, order) => ({
   related: page.id.startsWith('script/') ? scripts.find((item) => `script/${item.id}` === page.id)?.related || [] : relatedById[page.id] || [],
   component: page.id.startsWith('script/') ? 'ScriptReferencePage' : `${page.id.replace(/(^|[-/])([a-z])/g, (_match: string, _sep: string, letter: string) => letter.toUpperCase())}Page`,
 }));
+
+// Keep the visible navigation groups in a deliberate order while deriving their links from page metadata.
 const categoryOrder = ['Getting started', 'Architecture', 'Simulation', 'Experiences', 'Reference'];
 export const navigation = categoryOrder.map((label) => ({
   label,
@@ -56,11 +61,13 @@ const routeAliases: Record<string, string> = {
   'systems/heatmap': 'simulation/heatmap',
 };
 
+// Prefix every route with Vite's base path so links work in local dev and the GitHub Pages subdirectory.
 export function docPath(id: string, anchor = '') {
   const normalized = id.startsWith('script/') ? id : id;
   return `${import.meta.env.BASE_URL}docs/${normalized}${anchor ? `#${anchor}` : ''}`;
 }
 
+// Read the pathname for the active page and the hash for its optional in-page section.
 export function parseDocLocation() {
   const mountPath = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL.replace(/\/$/, '');
   const mountedPath = window.location.pathname.startsWith(mountPath) ? window.location.pathname.slice(mountPath.length) : window.location.pathname;
@@ -69,6 +76,7 @@ export function parseDocLocation() {
   return { id: routeAliases[id] || id, anchor: decodeURIComponent(window.location.hash.slice(1)) };
 }
 
+// Convert authored `#/...` references into actual docs routes, including the event table's anchor syntax.
 export function toDocHref(href: string) {
   const route = href.replace(/^#\//, '');
   const marker = route.indexOf('@');
@@ -80,6 +88,7 @@ export function normalizeDocMarkup(markup: string) {
   return markup.replace(/href="#\/([^"]+)"/g, (_match, route: string) => `href="${toDocHref(`#/${route}`)}"`);
 }
 
+// Search terms combine authored tags, visible body text, and script communication metadata.
 export const searchablePages = pages.map((page) => {
   const content = document.createElement('div');
   content.innerHTML = page.body();

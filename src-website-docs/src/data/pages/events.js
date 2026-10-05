@@ -1,6 +1,7 @@
 /* Generated page content: RemoteEvents and replicated attributes. */
 export default (ctx) => {
   const { h, route, scriptLink, table, page, events, scripts } = ctx;
+  // Build the sender/receiver rows from the event catalog so references stay in sync with script metadata.
   const eventRows = (place) => events.filter((event) => event.place === place).map((event) => [
     `<span id="${event.id}"></span><code>${h(event.name)}</code><br><small>${h(event.direction)}</small>`,
     scriptLink(event.sender, scripts.find((item) => item.id === event.sender)?.name || event.sender),

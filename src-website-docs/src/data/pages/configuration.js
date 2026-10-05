@@ -1,4 +1,5 @@
 /* Page content: configuration. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('configuration', 'Data and configuration', 'Reference', 'Where band, grid, range, material, NPC, and display settings live in source.', ['config', 'FrequencyData', 'constants', 'attenuation', 'heatmap'], () => `

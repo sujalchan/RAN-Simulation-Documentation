@@ -5,12 +5,14 @@ import { DocSection } from './DocSection';
 import { FileReference } from './FileReference';
 import { Link } from './Link';
 
+// Builds a script detail page from catalog metadata so all individual script pages share one layout.
 export function ScriptReferencePage({ id }: { id: string }) {
   const item = scripts.find((script) => script.id === id);
   if (!item) return <p>Script reference not found.</p>;
   const place = item.place === 'material-lab' ? 'Material lab' : 'Small town';
   const location = item.path.split('/').slice(3, -1).join('/') || 'Place root';
   const communication = item.events.map(([direction, name, description]) => {
+    // Link only to an event with the same name in this place; similar names can exist in both places.
     const event = events.find((entry) => entry.name === name && entry.place === place);
     return [direction, event ? <Link to={docPath('events', event.id)}><code>{name}</code></Link> : <code>{name}</code>, description];
   });

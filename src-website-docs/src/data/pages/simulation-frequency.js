@@ -1,4 +1,5 @@
 /* Page content: simulation/frequency. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('simulation/frequency', 'Frequency and range', 'Simulation', 'How selectable bands influence per-player signal estimates and heatmap distance.', ['4G', '5G', '700 MHz', '1800 MHz', '2100 MHz', '3500 MHz', 'FrequencyChangedEvent'], () => `

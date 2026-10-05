@@ -1,4 +1,5 @@
 /* Page content: simulation/antennas. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('simulation/antennas', 'Antennas and coverage', 'Simulation', 'How antenna patterns, placement, coverage spheres, and NPC load are visualized.', ['antenna', 'beamforming', 'azimuth', 'elevation', 'coverage', 'NPC'], () => `

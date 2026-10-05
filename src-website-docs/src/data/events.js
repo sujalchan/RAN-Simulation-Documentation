@@ -1,4 +1,4 @@
-/* RemoteEvent reference metadata. */
+/* One record per cross-client/server event, including its place-specific endpoints and payload. */
 const events = [
     { id: 'lab-frequencychangedevent', place: 'Material lab', name: 'FrequencyChangedEvent', direction: 'Client → server', sender: 'lab-room-one-dashboard', receivers: ['lab-player-signal-handler', 'lab-heatmap-handler'], arguments: 'frequencyBand: string, newMaxDistance: number', purpose: 'Changes per-player frequency attributes in PlayerSignalHandler; HeatmapHandler uses newMaxDistance as its heatmap distance limit. The two listeners read different portions of the same call.' },
     { id: 'lab-toggleheatmapevent', place: 'Material lab', name: 'ToggleHeatmapEvent', direction: 'Client → server', sender: 'lab-heatmap-toggle', receivers: ['lab-heatmap-handler'], arguments: 'update: "RSRP" | "SINR"', purpose: 'Switches which heatmap metric is drawn by the server updater.' },

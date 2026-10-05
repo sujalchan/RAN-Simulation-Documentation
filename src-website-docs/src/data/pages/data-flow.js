@@ -1,4 +1,5 @@
 /* Page content: data-flow. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('data-flow', 'Data flow', 'Architecture', 'Concrete request and update paths through RemoteEvents and attributes.', ['RemoteEvent', 'attributes', 'communication', 'FrequencyChangedEvent'], () => `

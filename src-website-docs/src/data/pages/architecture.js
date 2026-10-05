@@ -1,4 +1,5 @@
 /* Page content: architecture. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('architecture', 'Runtime structure', 'Architecture', 'How Roblox server scripts, client scripts, shared data, and world objects fit together.', ['client server', 'Roblox services', 'ReplicatedStorage', 'Workspace'], () => `

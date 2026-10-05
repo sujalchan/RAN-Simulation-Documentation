@@ -6,6 +6,15 @@ The RAN Simulator is a hands-on Roblox experience created for the **2degrees boo
 
 The site documents the architecture, Luau scripts, simulation systems, client/server communication, and telecommunications concepts used by the Roblox Studio implementation.
 
+## Website Code Map
+
+- `src-website-docs/src/main.tsx` mounts the React app; `App.tsx` provides the shared page shell, route state, search, theme, and navigation behavior.
+- `src-website-docs/src/config/docsConfig.ts` derives routes, navigation, page lookups, and search data from the documentation catalog.
+- `src-website-docs/src/data/pages/` contains one content module per documentation topic. `data/helpers.js` supplies reusable HTML builders, while `data/scripts.js` and `data/events.js` hold the source-reference catalogs.
+- `src-website-docs/src/components/docs/` contains shared interface pieces such as the sidebar, search dialog, page renderer, tables, callouts, and script references.
+- `src-website-docs/src/docs/` maps named routes to the shared page renderer. `src-website-docs/src/styles/site.css` defines layout, responsive behavior, and both color themes.
+- `src-website-docs/scripts/create-pages.mjs` copies the built app shell to each documentation URL so static hosting can open nested routes directly.
+
 The site should be avaliable here: [RAN-Simulation-Documentation Site](https://sujalchan.github.io/RAN-Simulation-Documentation/docs/overview/)
 
 ## Getting Started

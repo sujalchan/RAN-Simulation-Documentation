@@ -14,11 +14,13 @@ const aliases = [
 ];
 const routes = [...new Set([...data.pages.map((page) => page.id), ...aliases])];
 
+// Copy the built app shell to each known route so direct links work on static hosting.
 for (const route of routes) {
   const target = join(output, 'docs', route, 'index.html');
   await mkdir(dirname(target), { recursive: true });
   await cp(join(output, 'index.html'), target);
 }
 
+// GitHub Pages falls back to this file when it cannot find a requested path.
 await cp(join(output, 'index.html'), join(output, '404.html'));
 console.log(`Generated direct-load pages for ${routes.length} documentation routes.`);

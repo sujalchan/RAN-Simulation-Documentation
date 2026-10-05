@@ -2,11 +2,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Search, X } from 'lucide-react';
 import { searchablePages } from '../../config/docsConfig';
 
+// Search the prebuilt page/script/event index and support keyboard-first navigation in a modal.
 export function DocSearch({ open, close, navigate }: { open: boolean; close: () => void; navigate: (href: string) => void }) {
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(0);
   const input = useRef<HTMLInputElement>(null);
   const results = useMemo(() => {
+    // An empty query offers useful starting points; otherwise score every term against title and page text.
     const terms = query.toLocaleLowerCase().normalize('NFKD').trim().split(/\s+/).filter(Boolean);
     if (!terms.length) return searchablePages.filter((item) => ['overview', 'simulation/signal', 'events', 'code-reference', 'developer-guide'].includes(item.id)).slice(0, 5);
     return searchablePages.map((item) => {
@@ -21,6 +23,7 @@ export function DocSearch({ open, close, navigate }: { open: boolean; close: () 
       return { item, score };
     }).filter(({ score }) => score > 0).sort((a, b) => b.score - a.score || a.item.title.localeCompare(b.item.title)).slice(0, 10).map(({ item }) => item);
   }, [query]);
+  // Reset and focus the field each time the dialog opens, and restart arrow-key selection for new results.
   useEffect(() => { if (open) { setQuery(''); setSelected(0); requestAnimationFrame(() => input.current?.focus()); } }, [open]);
   useEffect(() => { setSelected(0); }, [query]);
   if (!open) return null;

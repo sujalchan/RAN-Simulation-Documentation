@@ -1,4 +1,5 @@
 /* Page content: simulation/signal. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('simulation/signal', 'Signal metrics', 'Simulation', 'The implemented signal, RSRP-like, SINR, interference, and noise calculations.', ['RSRP', 'SINR', 'RSRQ', 'dBm', 'interference', 'signal strength'], () => `

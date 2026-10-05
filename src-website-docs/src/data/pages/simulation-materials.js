@@ -1,4 +1,5 @@
 /* Page content: simulation/materials. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('simulation/materials', 'Materials and attenuation', 'Simulation', 'How placed blocks and town zones affect simulated signal attributes and heatmap tiles.', ['attenuation', 'concrete', 'metal', 'wood', 'raycast', 'obstacles'], () => `

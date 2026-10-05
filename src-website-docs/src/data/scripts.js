@@ -1,4 +1,4 @@
-/* Script reference metadata. */
+/* One record per Luau source file; these records drive the script index and detail pages. */
 import { script } from './helpers.js';
 
 const scripts = [

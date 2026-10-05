@@ -13,12 +13,14 @@ import { pageComponents } from './docs/pageRegistry';
 import { ScriptReferencePage } from './components/docs/ScriptReferencePage';
 
 export default function App() {
+  // Keep the active route in React state so history changes can render without a full page load.
   const [location, setLocation] = useState(parseDocLocation);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchTrigger = useRef<HTMLButtonElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => { try { return localStorage.getItem('ran-docs-sidebar-collapsed') === 'true'; } catch { return false; } });
   const [scriptFilter, setScriptFilter] = useState('all');
+  // Persist the two user preferences independently; storage can be unavailable in private contexts.
   const [theme, setTheme] = useState(() => { try { return localStorage.getItem('ran-docs-theme') === 'light' ? 'light' : 'dark'; } catch { return 'dark'; } });
   const page = pageById.get(location.id);
   const html = useMemo(() => page ? normalizeDocMarkup(page.body()) : '', [page]);
@@ -35,22 +37,26 @@ export default function App() {
     else setSidebarCollapsed((value) => !value);
   };
 
+  // Browser back/forward and hash edits update the route state from the current URL.
   useEffect(() => {
     const update = () => setLocation(parseDocLocation());
     window.addEventListener('popstate', update);
     window.addEventListener('hashchange', update);
     return () => { window.removeEventListener('popstate', update); window.removeEventListener('hashchange', update); };
   }, []);
+  // Keep page metadata, anchor scrolling, and the document title in sync with route changes.
   useEffect(() => {
     document.title = `${page?.title || 'Page not found'} · RAN Simulator Docs`;
     if (location.id === 'code-reference') setScriptFilter('all');
     if (location.anchor) requestAnimationFrame(() => document.getElementById(location.anchor)?.scrollIntoView({ block: 'start' }));
     else window.scrollTo({ top: 0, behavior: 'auto' });
   }, [location.id, location.anchor, page]);
+  // Mirror React preferences onto the document/body and local storage for styles and next visits.
   useEffect(() => { document.documentElement.dataset.theme = theme; try { localStorage.setItem('ran-docs-theme', theme); } catch { /* Theme remains active for this visit. */ } }, [theme]);
   useEffect(() => { document.body.classList.toggle('mobile-nav-open', mobileOpen); }, [mobileOpen]);
   useEffect(() => { try { localStorage.setItem('ran-docs-sidebar-collapsed', String(sidebarCollapsed)); } catch { /* The preference is optional. */ } }, [sidebarCollapsed]);
   useEffect(() => {
+    // Cmd/Ctrl+K and `/` are global shortcuts; do not steal `/` while a form control is being edited.
     const onKey = (event: KeyboardEvent) => {
       const editing = /^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement as HTMLElement | null)?.tagName || '');
       if (((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') || (event.key === '/' && !editing)) { event.preventDefault(); setSearchOpen(true); }
@@ -61,6 +67,7 @@ export default function App() {
 
   const go = (href: string) => { window.history.pushState({}, '', href); setLocation(parseDocLocation()); setMobileOpen(false); };
   const closeSearch = () => { setSearchOpen(false); requestAnimationFrame(() => searchTrigger.current?.focus()); };
+  // Delegate clicks from authored page markup so doc links stay in-app and script filters work without React rerendering the raw HTML.
   const followDocLink = (event: MouseEvent<HTMLElement>) => {
     if (event.defaultPrevented) return;
     const target = event.target as HTMLElement;
@@ -78,9 +85,11 @@ export default function App() {
     }
     const url = new URL(anchor.href, window.location.href);
     const docsBase = `${import.meta.env.BASE_URL}docs/`;
+    // External URLs are left to the browser; only links under the docs base become client-side routes.
     if (url.pathname.startsWith(docsBase)) { event.preventDefault(); go(`${url.pathname}${url.hash}`); }
   };
 
+  // The shell owns global navigation and controls; each page component supplies only its document content.
   return <><a className="skip-link" href="#main-content">Skip to content</a><div className={`app-shell ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
     <DocSidebar active={location.id} close={() => setMobileOpen(false)} collapsed={sidebarCollapsed} toggleCollapsed={() => setSidebarCollapsed((value) => !value)} />
     <div className="mobile-scrim" hidden={!mobileOpen} onClick={() => setMobileOpen(false)} aria-hidden="true" />

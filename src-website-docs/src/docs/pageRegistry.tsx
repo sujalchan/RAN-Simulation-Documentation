@@ -17,6 +17,7 @@ import Page14 from './reference/ConfigurationPage';
 import Page15 from './reference/DeveloperGuidePage';
 import Page16 from './reference/ScriptIndexPage';
 
+// Page content data supplies the text; these React components adapt each route to DocPage.
 export const pageComponents: Record<string, ComponentType> = {
   'overview': Page0,
   'repository': Page1,

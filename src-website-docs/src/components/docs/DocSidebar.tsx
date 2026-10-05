@@ -3,12 +3,14 @@ import { BookOpen, ChevronDown, PanelLeftClose } from 'lucide-react';
 import { docPath, navigation, pageById, scripts } from '../../config/docsConfig';
 import { Link } from './Link';
 
+// Renders the main topic tree and a second, place-filtered tree for individual script references.
 export function DocSidebar({ active, close, collapsed, toggleCollapsed }: { active: string; close: () => void; collapsed: boolean; toggleCollapsed: () => void }) {
   const groups = useMemo(() => navigation, []);
   const [scriptsExpanded, setScriptsExpanded] = useState(false);
   const [expandedPlaces, setExpandedPlaces] = useState<Record<string, boolean>>({});
   useEffect(() => {
     if (!active.startsWith('script/')) return;
+    // Opening a script directly also opens its place group so the active link remains visible.
     const script = scripts.find((item) => `script/${item.id}` === active);
     if (script) {
       setScriptsExpanded(true);

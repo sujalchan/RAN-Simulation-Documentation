@@ -1,4 +1,5 @@
 /* Page content: simulation/heatmap. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('simulation/heatmap', 'Heatmap generation', 'Simulation', 'Grid creation, incremental RSRP/SINR updates, colors, and mode switching.', ['heatmap', 'RSRP', 'SINR', 'tiles', 'ToggleHeatmapEvent'], () => `

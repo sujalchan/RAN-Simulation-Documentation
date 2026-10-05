@@ -1,4 +1,5 @@
 /* Page content: experience/small-town. */
+// Return metadata and a deferred HTML body; shared helpers are supplied by the page assembler.
 export default (ctx) => {
   const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
   return page('experience/small-town', 'Small town', 'Experiences', 'The fixed-tower and player-placed-antenna activity in the small-town place.', ['town', 'tower', 'placement', 'coverage', 'NPC'], () => `

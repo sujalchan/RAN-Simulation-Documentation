@@ -1,6 +1,7 @@
 /* Generated detail pages for the individual Luau scripts. */
 export default (ctx) => {
   const { h, route, eventLink, pill, table, page, scripts, events, pages } = ctx;
+  // A shared body renderer avoids maintaining near-identical markup for every source file.
 const scriptBody = (item) => {
     const remoteRows = item.events.map(([direction, name, description]) => [
       h(direction),

@@ -1,6 +1,7 @@
 /* Page content: searchable index of individual Luau scripts. */
 export default (ctx) => {
   const { h, page, scripts } = ctx;
+  // Render the catalog as filterable groups; App handles the data-filter buttons after HTML insertion.
   return page('code-reference', 'Script index', 'Reference', 'All 32 Luau files, grouped by place with a conceptual reference page for each one.', ['scripts', 'ModuleScript', 'LocalScript', 'Script', 'paths'], () => `
     <p>Each script page records its exact path, execution side, main functions, state, services, Roblox objects, and communication points.</p>
     <div class="script-filters" role="group" aria-label="Filter scripts by place">

@@ -17,6 +17,7 @@ import eventsPage from './events.js';
 import codeReferencePage from './code-reference.js';
 import scriptReferencePages from './script-reference.js';
 
+// Keep the public page order stable; generated script pages follow the hand-authored topics.
 export function buildPages(context) {
   const pages = [
     pageOverview(context),
@@ -37,6 +38,7 @@ export function buildPages(context) {
     eventsPage(context),
     codeReferencePage(context),
   ];
+  // Script detail pages need the already-built topic pages to resolve their related links.
   pages.push(...scriptReferencePages({ ...context, pages }));
   return pages;
 }
