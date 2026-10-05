@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
-import { Search, Sun, Moon, PanelLeftClose, PanelLeftOpen, Github } from 'lucide-react';
+import { Search, Sun, Moon, PanelLeftClose, PanelLeftOpen, Github, Gamepad2 } from 'lucide-react';
 import { Breadcrumbs } from './components/docs/Breadcrumbs';
 import { DocPage } from './components/docs/DocPage';
 import { DocSearch } from './components/docs/DocSearch';
@@ -42,7 +42,7 @@ export default function App() {
     return () => { window.removeEventListener('popstate', update); window.removeEventListener('hashchange', update); };
   }, []);
   useEffect(() => {
-    document.title = `${page?.title || 'Page not found'} · RAN Network Simulator Docs`;
+    document.title = `${page?.title || 'Page not found'} · RAN Simulator Docs`;
     if (location.id === 'code-reference') setScriptFilter('all');
     if (location.anchor) requestAnimationFrame(() => document.getElementById(location.anchor)?.scrollIntoView({ block: 'start' }));
     else window.scrollTo({ top: 0, behavior: 'auto' });
@@ -87,7 +87,7 @@ export default function App() {
     <div className="workspace"><header className="topbar"><div className="topbar-start"><button type="button" className="icon-button menu-toggle" onClick={toggleNavigation} aria-label={navigationExpanded ? 'Collapse sidebar' : 'Show sidebar'} aria-controls="sidebar" aria-expanded={navigationExpanded}>{navigationExpanded ? <PanelLeftClose /> : <PanelLeftOpen />}</button><span className="topbar-divider" /><span className="topbar-location">Documentation <span>/</span> <strong>{page?.title || 'Page not found'}</strong></span></div><div className="topbar-actions"><button ref={searchTrigger} className="search-trigger" onClick={() => setSearchOpen(true)} aria-keyshortcuts="Control+k Meta+k /"><Search /><span>Search documentation</span><kbd>⌘ K</kbd></button><div className="theme-switch" role="group" aria-label="Color theme"><button className="theme-option" aria-label="Light mode" aria-pressed={theme === 'light'} onClick={() => setTheme('light')}><Sun /><span>Light</span></button><button className="theme-option" aria-label="Dark mode" aria-pressed={theme === 'dark'} onClick={() => setTheme('dark')}><Moon /><span>Dark</span></button></div></div></header>
       <div className="reading-layout"><main className="main-content" id="main-content" tabIndex={-1}><Breadcrumbs title={page?.title || 'Page not found'} group={group} /><article className="doc-article" onClick={followDocLink}>{page ? (script ? <ScriptReferencePage id={script.id} /> : pageComponents[page.id] ? <>{(() => { const PageComponent = pageComponents[page.id]; return <PageComponent />; })()}</> : <DocPage page={page} />) : <div className="page-enter"><p className="eyebrow">Documentation</p><h1>Page not found</h1><p className="lede">This documentation route does not exist.</p><Link to={docPath('overview')}>Return to the overview →</Link></div>}</article>
         {index >= 0 ? <nav className="page-neighbors" aria-label="Adjacent pages">{previous ? <Link className="neighbor-link" to={docPath(previous.id)}><small>Previous page</small><strong>← {previous.title}</strong></Link> : <span />}{next ? <Link className="neighbor-link next" to={docPath(next.id)}><small>Next page</small><strong>{next.title} →</strong></Link> : <span />}</nav> : <nav className="page-neighbors" aria-label="Adjacent pages"><Link className="neighbor-link" to={docPath('code-reference')}><small>Back to reference</small><strong>← All scripts</strong></Link></nav>}
-        <footer className="content-footer"><span>RAN Network Simulator</span><a href="https://github.com/sujalchan/RAN-Simulation-Documentation" target="_blank" rel="noreferrer"><Github size={14} aria-hidden="true"/>View Documentation GitHub</a></footer></main>{page && <TableOfContents pageId={page.id} markup={html} scriptFilter={scriptFilter} />}</div>
+        <footer className="content-footer"><span>RAN Simulator</span><div className="content-footer-links"><a href="https://www.roblox.com/games/95885971158871/ShadowTech-Signal-Challenge" target="_blank" rel="noreferrer"><Gamepad2 size={14} aria-hidden="true"/>Play the experience</a><a href="https://github.com/sujalchan/RAN-Simulation-Documentation" target="_blank" rel="noreferrer"><Github size={14} aria-hidden="true"/>View Documentation GitHub</a></div></footer></main>{page && <TableOfContents pageId={page.id} markup={html} scriptFilter={scriptFilter} />}</div>
     </div></div>
     <DocSearch open={searchOpen} close={closeSearch} navigate={go} />
   </>;

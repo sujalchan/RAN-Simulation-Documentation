@@ -1,6 +1,8 @@
-# RAN Network Simulator Documentation
+# RAN Simulator Documentation
 
-Developer documentation website for the **RAN Network Simulator**, built with React, TypeScript, and Vite.
+Developer documentation website for the **RAN Simulator**, built with React, TypeScript, and Vite.
+
+The RAN Simulator is a hands-on Roblox experience created for the **2degrees booth at the ShadowTech programme**. It helps Year 9–11 students explore mobile network ideas through interactive activities about signal coverage, materials, frequencies, and antenna placement.
 
 The site documents the architecture, Luau scripts, simulation systems, client/server communication, and telecommunications concepts used by the Roblox Studio implementation.
 
@@ -111,7 +113,7 @@ src/
 
 ## Documentation Sources
 
-The documentation describes the **current Roblox Studio implementation** of the RAN Network Simulator.
+The documentation describes the **current Roblox Studio implementation** of the RAN Simulator.
 
 When determining how the system behaves, the documentation follows this source priority:
 
