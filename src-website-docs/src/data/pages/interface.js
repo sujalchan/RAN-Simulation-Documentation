@@ -1,0 +1,13 @@
+/* Page content: interface. */
+export default (ctx) => {
+  const { h, route, scriptLink, eventLink, pill, card, callout, table, highlight, code, diagram, script, scripts, events, page } = ctx;
+  return page('interface', 'User interface', 'Experiences', 'Which client scripts render controls and how server state reaches each dashboard.', ['dashboard', 'slider', 'UI', 'status badges'], () => `
+      <h2 id="lab-ui">Material-lab panels</h2>
+      ${table(['UI script', 'Reads or sends', 'Visible effect'], [[scriptLink('lab-room-one-dashboard','RoomOneDashboard'), 'Player RSRP, SINR, material, source and distance; sends FrequencyChangedEvent.', 'Signal bars, status badges, material insight, tower and capacity display, frequency slider.'], [scriptLink('lab-room-two-dashboard','RoomTwoDashboard'), 'Room flags and antenna attributes; computes a local distance estimate.', 'Room-two signal and antenna panel.'], [scriptLink('lab-slider-controls','SliderControls'), 'ClosestSignalSource and InRoomTwo; sends UpdateAntennaEvent.', 'Azimuth and elevation sliders.'], [scriptLink('lab-heatmap-toggle','HeatmapToggle'), 'Sends ToggleHeatmapEvent.', 'RSRP/SINR mode button.'], [scriptLink('lab-pop-up-script','PopUpScript'), 'Antenna attributes.', 'Antenna details popup.'], [scriptLink('lab-npc-control-script','NPCControlScript'), 'NPCSpawnEvent count.', 'NPC count slider.']])}
+      <h2 id="town-ui">Small-town panels</h2>
+      ${table(['UI script', 'Reads or sends', 'Visible effect'], [[scriptLink('town-town-dashboard-script','TownDashboardScript'), 'PlacedAntenna* player attributes and NPC count.', 'Signal, range, source, and load cards.'], [scriptLink('town-antennaplacer','Antennaplacer'), 'PlaceAntenna/DeleteAntenna/ResetGame and CoverageScore.', 'Placement preview, antenna choice, budget, results.'], [scriptLink('town-cell-tower-visualizer','CellTowerVisualizer'), 'Tower models and FrequencyBand.', 'Coverage spheres, score indicator, toggle.'], [scriptLink('town-speed-control-script','SpeedControlScript'), 'User input and StartGame/ResetGame.', 'Speed slider.'], [scriptLink('town-npc-control-script','NPCControlScript'), 'NPCSpawnEvent.', 'NPC count slider.']])}
+      <h2 id="refresh">Refresh behavior</h2>
+      <p>Several dashboards read replicated player attributes in <code>RenderStepped</code> handlers. Other controls use <code>GetAttributeChangedSignal</code> for room visibility or antenna labels. World calculations run in server <code>Heartbeat</code> loops; the UI may update more often than those values change.</p>
+      <p>For exact event payloads, use ${route('events','Events and communication')}. For each script's functions and paths, use ${route('code-reference','the script index')}.</p>
+    `);
+};
